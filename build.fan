@@ -6,14 +6,14 @@ class Build : BuildPod {
 	new make() {
 		podName = "afSass4f"
 		summary = "A wrapper around LibSass 3.2.5 - the compiler for Sass and Scss"
-		version = Version("0.0.2")
+		version = Version("0.0.3")
 
 		meta = [	
 			"proj.name"		: "Sass4f",
 			"repo.tags"		: "app, web",
 			"repo.internal"	: "true",
 			"license.name"	: "The MIT Licence",
-			"repo.public"	: "true"
+			"repo.public"	: "false"
 		]
 
 		depends = [
