@@ -66,7 +66,7 @@ class SassCompiler {
 //		}
 //	}
 	
-	** Returns the LibSass version this compiler wraps.
+	** Returns the libSass version this compiler wraps.
 	Str version() {
 		libSass.libsass_version
 	}
