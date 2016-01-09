@@ -1,0 +1,17 @@
+JNA
+***
+The native libSass binaries and the JNAerated Java source file have both been lifted from [sass-java]`https://github.com/cathive/sass-java`.
+
+To re-build, follow these commands (confirmed to work with Maven 3.3.1):
+
+pre>
+> git clone https://github.com/cathive/sass-java.git
+> cd sass-java
+> git checkout v4.0.0
+> mvn clean generate-resources
+<pre
+
+'SassLibrary.java' may then be found in '/sass-java/target/generated-sources/jnaerator/'.
+
+The pre-compiled native libsass binaries live in '/sass-java/src/main/resources/'. When copying to '/Sass4f/res/', ensure the directories are renamed appropriately to Fantom / OSGI standards.
+
