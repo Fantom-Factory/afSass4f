@@ -6,14 +6,14 @@ class Build : BuildPod {
 	new make() {
 		podName = "afSass4f"
 		summary = "A wrapper around LibSass 3.2.5 - the compiler for Sass and Scss"
-		version = Version("0.0.1")
+		version = Version("0.0.2")
 
 		meta = [	
 			"proj.name"		: "Sass4f",
 			"repo.tags"		: "app, web",
 			"repo.internal"	: "true",
 			"license.name"	: "The MIT Licence",
-			"repo.public"	: "false"
+			"repo.public"	: "true"
 		]
 
 		depends = [
@@ -24,8 +24,6 @@ class Build : BuildPod {
 		srcDirs = [`fan/`]
 		resDirs = [`doc/`, `res/linux-x86/`, `res/linux-x86_64/`, `res/macosx-x86_64/`, `res/win32-x86/`, `res/win32-x86_64/`]
 		javaDirs= [`java/`]
-		
-		outPodDir=Env.cur.homeDir.uri + `lib/fan/`
 	}
 	
 	override Void onCompileFan(CompilerInput ci) {

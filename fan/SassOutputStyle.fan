@@ -1,7 +1,7 @@
 
 ** Sass CSS output style.
 ** 
-** See `http://sass-lang.com/documentation/file.SASS_REFERENCE.html#output_style` for details.
+** See [Sass Output Style]`http://sass-lang.com/documentation/file.SASS_REFERENCE.html#output_style` for details.
 enum class SassOutputStyle {
 
 	** Nested style is the default Sass style, because it reflects the structure of the CSS styles and the HTML
