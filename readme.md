@@ -1,8 +1,9 @@
 #Sass4f v0.0.2
 ---
-[![Written in: Fantom](http://img.shields.io/badge/written%20in-Fantom-lightgray.svg)](http://fantom.org/)
+
+[![Written in: Fantom](http://img.shields.io/badge/written%20in-Fantom-lightgray.svg)](http://fantom-lang.org/)
 [![pod: v0.0.2](http://img.shields.io/badge/pod-v0.0.2-yellow.svg)](http://www.fantomfactory.org/pods/afSass4f)
-![Licence: MIT](http://img.shields.io/badge/licence-MIT-blue.svg)
+![Licence: ISC](http://img.shields.io/badge/licence-ISC-blue.svg)
 
 ## Overview
 
@@ -20,17 +21,21 @@ Quick start example:
 
 ## Install
 
-Install `Sass4f` with the Fantom Repository Manager ( [fanr](http://fantom.org/doc/docFanr/Tool.html#install) ):
+Install `Sass4f` with the Fantom Pod Manager ( [FPM](http://eggbox.fantomfactory.org/pods/afFpm) ):
 
-    C:\> fanr install -r http://pods.fantomfactory.org/fanr/ afSass4f
+    C:\> fpm install afSass4f
 
-To use in a [Fantom](http://fantom.org/) project, add a dependency to `build.fan`:
+Or install `Sass4f` with [fanr](http://fantom.org/doc/docFanr/Tool.html#install):
+
+    C:\> fanr install -r http://eggbox.fantomfactory.org/fanr/ afSass4f
+
+To use in a [Fantom](http://fantom-lang.org/) project, add a dependency to `build.fan`:
 
     depends = ["sys 1.0", ..., "afSass4f 0.0"]
 
 ## Documentation
 
-Full API & fandocs are available on the [Fantom Pod Repository](http://pods.fantomfactory.org/pods/afSass4f/).
+Full API & fandocs are available on the [Eggbox](http://eggbox.fantomfactory.org/pods/afSass4f/) - the Fantom Pod Repository.
 
 ## Quick Start
 
@@ -44,13 +49,13 @@ Where `sassIn` and `cssOut` are files. OS dependent and / or URI notation may be
     
     C:\> fan afSass4j -x file:/C:/projects/website.scss file:/C:/projects/website.css
 
-`-x` compresses the CSS output and `-m` generates a source map.
+`-x` compresses the CSS output, `-m` generates a source map, and `-w` continuously watches for file updates.
 
 Note that `cssOut` may also be a directory, for example:
 
-    C:\> fan afSass4j scss\website.scss css\
+    C:\> fan afSass4j -x -m -w scss\website.scss css\
 
-will generate `css\website.css`.
+will generate `css\website.css` and re-compile it should any file in the `scss/` directory be updated.
 
 **TODO:** Add more cmd line options for source map generation. See API docs.
 

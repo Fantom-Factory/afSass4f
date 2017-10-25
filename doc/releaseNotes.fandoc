@@ -1,5 +1,6 @@
-Versions
-********
+v0.0.4
+======
+ - New: Added 'watch' command line switch to monitor the base directory and re-compile the CSS should any file change.
 
 v0.0.2
 ======
