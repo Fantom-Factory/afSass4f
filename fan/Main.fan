@@ -28,8 +28,6 @@ class Main : AbstractMain {
 	@Arg { help="The .css output file" }
 	private File? cssOut
 
-	new make() {}
-	
 	@NoDoc
 	override Int run() {
 		Install().go
