@@ -15,3 +15,4 @@ pre>
 
 The pre-compiled native libsass binaries live in '/sass-java/src/main/resources/'. When copying to '/Sass4f/res/', ensure the directories are renamed appropriately to Fantom / OSGI standards.
 
+Note that 'sass-java' seems to be abandoned after the v4.0.0 release. For newer libSass bindings, look at [jsass]`https://github.com/bit3/jsass`. I think the [releases]`https://github.com/bit3/jsass/releases` contain the binaries, so you may just need to compile the Java lib.

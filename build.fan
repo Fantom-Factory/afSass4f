@@ -9,7 +9,7 @@ class Build : BuildPod {
 		version = Version("0.0.3")
 
 		meta = [	
-			"proj.name"		: "Sass4f",
+			"pod.dis"		: "Sass4f",
 			"repo.tags"		: "app, web",
 			"repo.internal"	: "true",
 			"license.name"	: "The MIT Licence",
@@ -17,8 +17,9 @@ class Build : BuildPod {
 		]
 
 		depends = [
-			"sys  1.0",
-			"util 1.0",
+			"sys        1.0.68 - 1.0",
+			"util       1.0.68 - 1.0",
+			"concurrent 1.0.68 - 1.0",
 		]
 
 		srcDirs = [`fan/`]

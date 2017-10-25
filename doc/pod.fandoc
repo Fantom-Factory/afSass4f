@@ -24,13 +24,13 @@ Where 'sassIn' and 'cssOut' are files. OS dependent and / or URI notation may be
 
   C:\> fan afSass4j -x file:/C:/projects/website.scss file:/C:/projects/website.css
 
-'-x' compresses the CSS output and '-m' generates a source map.
+'-x' compresses the CSS output, '-m' generates a source map, and '-w' continuously watches for file updates.
 
 Note that 'cssOut' may also be a directory, for example:
 
-  C:\> fan afSass4j scss\website.scss css\
+  C:\> fan afSass4j -x -m -w scss\website.scss css\
 
-will generate 'css\website.css'.
+will generate 'css\website.css' and re-compile it should any file in the 'scss/' directory be updated.
 
 **TODO:** Add more cmd line options for source map generation. See API docs.
 

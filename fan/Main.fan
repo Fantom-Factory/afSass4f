@@ -10,7 +10,7 @@ using util
 ** 
 **   C:\> fan afSass4j -x file:/C:/projects/website.scss file:/C:/projects/website.css
 ** 
-** '-x' compresses the CSS output and '-m' generates a source map.
+** '-x' compresses the CSS output, '-m' generates a source map, and '-w' continuously watches for file updates.
 class Main : AbstractMain {
 
 	@Opt { aliases=["x"]; help="Compresses the generated CSS" }
@@ -19,12 +19,17 @@ class Main : AbstractMain {
 	@Opt { aliases=["m"]; help="Generates a CSS source map" }
 	private Bool sourceMap
 
+	@Opt { aliases=["w"]; help="Continuously watches all files in the SCSS directory (and sub-directories) and re-compiles if any are updated" }
+	private Bool watch
+
 	@Arg { help="The .sass / .scss input file" }
 	private File? sassIn
 
 	@Arg { help="The .css output file" }
 	private File? cssOut
 
+	new make() {}
+	
 	@NoDoc
 	override Int run() {
 		Install().go
@@ -37,6 +42,17 @@ class Main : AbstractMain {
 		if (sassIn.ext == "sass" || sassIn.ext == "scss")
 			options.inputStyle	= SassInputStyle(sassIn.ext.upper)
 
+		if (watch) {
+			DirWatcher {
+				it.sassIn		= this.sassIn
+				it.cssOut		= this.cssOut
+				it.baseDir		= this.sassIn.parent
+				it.options		= options
+				it.sourceMap	= this.sourceMap
+			}.run
+			// DirWatcher never stops running
+		}
+		
 		log.info("Compiling `${sassIn.normalize.osPath}` to `${cssOut.normalize.osPath}`")
 		result	:= SassCompiler().compileFile(sassIn, options)
 		result.saveCss(cssOut)
