@@ -1,8 +1,8 @@
-#Sass4f v0.0.2
+#Sass4f v0.0.4
 ---
 
 [![Written in: Fantom](http://img.shields.io/badge/written%20in-Fantom-lightgray.svg)](http://fantom-lang.org/)
-[![pod: v0.0.2](http://img.shields.io/badge/pod-v0.0.2-yellow.svg)](http://www.fantomfactory.org/pods/afSass4f)
+[![pod: v0.0.4](http://img.shields.io/badge/pod-v0.0.4-yellow.svg)](http://www.fantomfactory.org/pods/afSass4f)
 ![Licence: ISC](http://img.shields.io/badge/licence-ISC-blue.svg)
 
 ## Overview
@@ -11,7 +11,7 @@
 
 Sass4f is a wrapper around [libSass 3.2.5](http://sass-lang.com/libsass) - libSass 3.2.5 - the compiler for Sass and Scss files.
 
-Sass4f is a simple command line utility program for compiling `.scss` files into `.css` files. It was created for compiling [Twitter Bootstrap 4](http://getbootstrap.com/) templates and has been successfully tested with Bootstrap v4.0.0-alpha.2.
+Sass4f is a simple command line utility program for compiling `.scss` files into `.css` files. It was created for compiling [Twitter Bootstrap 4](http://getbootstrap.com/) templates and has been successfully tested with Bootstrap v4.0.0-beta.2.
 
 Sass4f is a happy alternative to installing Sass, Node.js, Grunt, and half the Internet just to compile a couple of text files!
 
@@ -56,8 +56,6 @@ Note that `cssOut` may also be a directory, for example:
     C:\> fan afSass4j -x -m -w scss\website.scss css\
 
 will generate `css\website.css` and re-compile it should any file in the `scss/` directory be updated.
-
-**TODO:** Add more cmd line options for source map generation. See API docs.
 
 ## Platforms
 
