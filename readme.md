@@ -1,9 +1,9 @@
-#Sass4f v0.0.4
+# Sass4f v0.0.4
 ---
 
 [![Written in: Fantom](http://img.shields.io/badge/written%20in-Fantom-lightgray.svg)](http://fantom-lang.org/)
-[![pod: v0.0.4](http://img.shields.io/badge/pod-v0.0.4-yellow.svg)](http://www.fantomfactory.org/pods/afSass4f)
-![Licence: ISC](http://img.shields.io/badge/licence-ISC-blue.svg)
+[![pod: v0.0.4](http://img.shields.io/badge/pod-v0.0.4-yellow.svg)](http://eggbox.fantomfactory.org/pods/afSass4f)
+![Licence: The MIT Licence](http://img.shields.io/badge/licence-The%20MIT%20Licence-blue.svg)
 
 ## Overview
 

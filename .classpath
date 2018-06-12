@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="src" path="java"/>
 	<classpathentry kind="con" path="com.xored.fanide.jdt.launching.FANJAVA_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/jna-4.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/jnaerator-runtime-0.11.jar"/>
+	<classpathentry kind="lib" path="lib/jna-platform-4.2.1.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>

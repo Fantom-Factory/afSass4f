@@ -22,6 +22,10 @@ class Main : AbstractMain {
 	@Opt { aliases=["w"]; help="Continuously watches all files in the SCSS directory (and sub-directories) and re-compiles if any are updated" }
 	private Bool watch
 
+	@NoDoc
+	@Opt { aliases=["a"]; help="A really, really, shitty impl of Autoprefixer" }
+	private Bool autoprefix
+
 	@Arg { help="The .sass / .scss input file" }
 	private File? sassIn
 
@@ -53,6 +57,10 @@ class Main : AbstractMain {
 		
 		log.info("Compiling `${sassIn.normalize.osPath}` to `${cssOut.normalize.osPath}`")
 		result	:= SassCompiler().compileFile(sassIn, options)
+		
+		if (autoprefix)
+			result.autoprefix
+		
 		result.saveCss(cssOut)
 
 		if (sourceMap)

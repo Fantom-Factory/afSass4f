@@ -16,6 +16,13 @@ class SassResult {
 	
 	internal new make(|This|in) { in(this) }
 	
+	** A really shitty version of Autoprefixer.
+	** https://github.com/postcss/autoprefixer
+	Void autoprefix() {
+		css = css
+			.replace(";appearance: none", ";appearance: none;-moz-appearance: none;-webkit-appearance: none")
+	}
+	
 	** Saves the CSS to the given file.
 	** 
 	** If the given file is a directory then the resulting filename is taken from the input file with a '.css' extension.
