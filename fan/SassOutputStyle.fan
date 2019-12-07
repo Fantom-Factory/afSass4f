@@ -1,7 +1,8 @@
+using [java] io.bit3.jsass::OutputStyle
 
 ** Sass CSS output style.
 ** 
-** See [Sass Output Style]`http://sass-lang.com/documentation/file.SASS_REFERENCE.html#output_style` for details.
+** See [Sass Output Style]`https://sass-lang.com/documentation/js-api#outputstyle` for details.
 enum class SassOutputStyle {
 
 	** Nested style is the default Sass style, because it reflects the structure of the CSS styles and the HTML
@@ -24,4 +25,16 @@ enum class SassOutputStyle {
 	** separate selectors and a newline at the end of the file. It also includes some other minor compressions, such as
 	** choosing the smallest representation for colors. It’s not meant to be human-readable.
 	compressed;
+	
+	** The Sass output style.
+	OutputStyle outStyle() {
+		// OutputStyle is NOT const, so we can't set it as a field
+		switch (this) {
+			case nested		: return OutputStyle.NESTED
+			case expanded	: return OutputStyle.EXPANDED
+			case compact	: return OutputStyle.COMPACT
+			case compressed	: return OutputStyle.COMPRESSED
+			default			: throw UnsupportedErr(this.toStr)
+		}
+	}
 }

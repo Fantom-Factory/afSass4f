@@ -1,3 +1,5 @@
+using util::JsonInStream
+using [java] io.bit3.jsass::CompilationException
 
 ** Thrown when Sass compilation fails.
 const class SassCompilationErr : Err {
@@ -17,11 +19,22 @@ const class SassCompilationErr : Err {
 	** JSON representation of the error message.
 	const Str json;
 
-	new make(Int status, Str msg, Str filename, Int line, Int column, Str json) : super("[${fileName}:${line}:${column}] ${msg}") {
+	new make(Int status, Str msg, Str fileName, Int line, Int column, Str json) : super("[${fileName.toUri.name}:${line}:${column}] ${msg}") {
 		this.status 	= status
-		this.fileName	= filename
+		this.fileName	= fileName
 		this.line		= line
 		this.column		= column
 		this.json		= json
+	}
+	
+	static new fromException(CompilationException err) {
+		map := (Str:Obj?) JsonInStream(err.getErrorJson.in).readJson
+		return SassCompilationErr(
+			map["status"	], 
+			map["formatted"	],
+			map["file"		],
+			map["line"		] ?: -1,
+			map["column"	] ?: -1,
+			err.getErrorJson)
 	}
 }

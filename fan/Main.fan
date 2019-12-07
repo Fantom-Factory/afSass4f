@@ -34,10 +34,11 @@ class Main : AbstractMain {
 
 	@NoDoc
 	override Int run() {
-		Install().go
+		// FIXME ???
+//		Install().go
 
 		log := typeof.pod.log
-		log.info("Sass4j ${typeof.pod.version} with LibSass ${SassCompiler().version}")
+		log.info("Sass4j/${typeof.pod.version} with jsass/5.10.10 and libsass/3.6.3")
 		
 		options := SassOptions()
 		options.outputStyle	= compress ? SassOutputStyle.compressed : SassOutputStyle.nested
@@ -51,12 +52,13 @@ class Main : AbstractMain {
 				it.baseDir		= this.sassIn.parent
 				it.options		= options
 				it.sourceMap	= this.sourceMap
+				it.autoprefix	= this.autoprefix
 			}.run
 			// DirWatcher never stops running
 		}
 		
 		log.info("Compiling `${sassIn.normalize.osPath}` to `${cssOut.normalize.osPath}`")
-		result	:= SassCompiler().compileFile(sassIn, options)
+		result	:= SassCompiler().compileFile(sassIn, cssOut, options)
 		
 		if (autoprefix)
 			result.autoprefix

@@ -7,6 +7,7 @@ internal class DirWatcher {
 
 	SassOptions	options
 	Bool		sourceMap
+	Bool		autoprefix
 	File		sassIn
 	File		cssOut
 	File		baseDir
@@ -37,7 +38,8 @@ internal class DirWatcher {
 				
 				try {
 			        log.info("Compiling `${sassIn.normalize.osPath}` to `${cssOut.normalize.osPath}`")
-			        result  := SassCompiler().compileFile(sassIn, options)
+			        result  := SassCompiler().compileFile(sassIn, cssOut, options)
+					if (autoprefix)	result.autoprefix
 			        result.saveCss(cssOut)
 					if (sourceMap)
 						result.saveCss(options.sourceMap.outputPath ?: (cssOut.isDir ? cssOut : cssOut.parent))

@@ -1,5 +1,6 @@
-using [java] com.alienfactory.sassjna::SassLibrary
-using [java] com.alienfactory.sassjna::SassLibrary$Sass_Options	as Sass_Options
+using [java] io.bit3.jsass::Options
+using [java] java.io::File as JFile
+using [java] java.util::Arrays
 
 ** Sass compilation options.
 class SassOptions {
@@ -14,7 +15,10 @@ class SassOptions {
 	File[]			includePaths	:= File[,]
 
 	** Precision for fractional numbers.
-	Int				precision		:= 5
+	Int				precision		:= 3
+
+	** Output indentation.
+	Str				indent			:= "\t"
 
 	** Emit comments in the compiled CSS indicating the corresponding source line.
 	Bool			sourceComments	:= false
@@ -22,14 +26,19 @@ class SassOptions {
 	** Source Map compilation options.
 	SassSourceMapOptions sourceMap	:= SassSourceMapOptions()
 	
-	internal Void setOptions(Sass_Options opts) {
-		libSass := SassLibrary.INSTANCE
-		libSass.sass_option_set_is_indented_syntax_src(opts, inputStyle.ordinal)
-		libSass.sass_option_set_output_style(opts, outputStyle.ordinal)
-		libSass.sass_option_set_include_path(opts, includePaths.join(File.pathSep) { it.osPath }.trimToNull)
-		libSass.sass_option_set_precision(opts, precision)
-		libSass.sass_option_set_source_comments(opts, sourceComments ? 1 : 0)
-		sourceMap.setOptions(opts)
+	internal Options getOpts() {
+		opts := Options()
+		opts.setLinefeed("\n")
+		opts.setIndent(indent)
+		opts.setPrecision(precision)
+		opts.setSourceComments(sourceComments)
+		opts.setIsIndentedSyntaxSrc(inputStyle == SassInputStyle.SASS)
+		opts.setIncludePaths(
+			Arrays.asList(
+				includePaths.map |file->JFile| { JFile(file.normalize.osPath) }
+			)
+		)
+		return sourceMap.setOptions(opts)
 	}
 }
 
@@ -52,14 +61,14 @@ class SassSourceMapOptions {
 	Bool inlineSource
 	
 	** The 'sourceRoot' property of the generated source map.
-	Uri? sourceRoot
-	
-	internal Void setOptions(Sass_Options opts) {
-		libSass := SassLibrary.INSTANCE
-		libSass.sass_option_set_source_map_embed(opts, embed ? 1 : 0)
-		libSass.sass_option_set_source_map_contents(opts, inlineSource ? 1 : 0)
-		libSass.sass_option_set_omit_source_map_url(opts, omitUrl ? 1 : 0)
-		libSass.sass_option_set_source_map_file(opts, outputPath?.osPath)
-		libSass.sass_option_set_source_map_root(opts, sourceRoot?.toStr)
+	File? sourceRoot
+
+	internal Options setOptions(Options opts) {
+		opts.setSourceMapEmbed(embed)
+		opts.setSourceMapContents(inlineSource)
+		opts.setOmitSourceMapUrl(omitUrl)
+		opts.setSourceMapFile(outputPath == null ? null : JFile(outputPath.normalize.osPath).toURI)
+		opts.setSourceMapRoot(sourceRoot == null ? null : JFile(sourceRoot.normalize.osPath).toURI)
+		return opts
 	}
 }

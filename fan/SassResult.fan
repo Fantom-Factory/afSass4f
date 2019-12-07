@@ -9,7 +9,7 @@ class SassResult {
 	Str css
 	
 	** The compiled source map.
-	Str	sourceMap
+	Str? sourceMap
 	
 	** The options used to compile the Sass files.
 	SassOptions options
@@ -17,7 +17,8 @@ class SassResult {
 	internal new make(|This|in) { in(this) }
 	
 	** A really shitty version of Autoprefixer.
-	** https://github.com/postcss/autoprefixer
+	** 
+	** `https://github.com/postcss/autoprefixer`
 	Void autoprefix() {
 		css = css
 			.replace(";appearance: none", ";appearance: none;-moz-appearance: none;-webkit-appearance: none")
