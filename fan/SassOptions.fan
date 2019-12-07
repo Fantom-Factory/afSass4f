@@ -33,6 +33,7 @@ class SassOptions {
 		opts.setPrecision(precision)
 		opts.setSourceComments(sourceComments)
 		opts.setIsIndentedSyntaxSrc(inputStyle == SassInputStyle.SASS)
+		opts.setOutputStyle(outputStyle.outStyle)
 		opts.setIncludePaths(
 			Arrays.asList(
 				includePaths.map |file->JFile| { JFile(file.normalize.osPath) }

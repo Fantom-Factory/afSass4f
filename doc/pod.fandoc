@@ -1,8 +1,8 @@
 Overview
 ********
-Sass4f is a wrapper around [libSass 3.2.5]`http://sass-lang.com/libsass` - libSass 3.2.5 - the compiler for Sass and Scss files.
+Sass4f is a wrapper around [jsass/5.10.3]`https://github.com/bit3/jsass` and [libsass/3.6.3]`https://sass-lang.com/libsass` - the compiler for Sass and Scss files.
 
-Sass4f is a simple command line utility program for compiling '.scss' files into '.css' files. It was created for compiling [Twitter Bootstrap 4]`http://getbootstrap.com/` templates and has been successfully tested with Bootstrap v4.0.0-beta.2.
+Sass4f is a simple command line utility program for compiling '.scss' files into '.css' files. It was created for compiling [Twitter Bootstrap]`http://getbootstrap.com/` templates and has been successfully tested with Bootstrap v4.4.1.
 
 Sass4f is a happy alternative to installing Sass, Node.js, Grunt, and half the Internet just to compile a couple of text files!
 
@@ -44,20 +44,16 @@ Sass4f is bundled with pre-compiled native binaries for the following platforms:
  - 'win32-x86'
  - 'win32-x86_64'
 
-When Sass4f is first run, the appropriate binary is copied to '%FAN_HOME%/bin/' so it may be loaded by Java.
-
 
 
 Dependencies
 ************
 Sass4f is designed to be used a standalone application and as such, comes bundled with the following jars:
 
- - 'jna-4.2.1.jar'
- - 'jna-platform-4.2.1.jar'
- - 'jnaerator-runtime-0.11.jar'
+ - 'commons-io-2.6.jar'
+ - 'commons-lang3-3.9.jar'
+ - 'commons-text-1.8.jar'
+ - 'jsass-5.10.3.jar'
+ - 'mjson-1.4.1.jar'
+ - 'slf4j-api-1.7.28.jar'
 
-
-
-Acknowledgements
-****************
-Sass4f uses [JNAerator]`https://github.com/nativelibs4java/JNAerator` to communicate with [libSass]`http://sass-lang.com/libsass` - an idea taken from [sass-java]`https://github.com/cathive/sass-java`.

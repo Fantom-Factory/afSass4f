@@ -1,3 +1,8 @@
+
+v0.1.0
+======
+ - New: Updated to use [jsass/5.10.3]`https://github.com/bit3/jsass` with [libsass/3.6.3]`https://sass-lang.com/libsass`. (Sass4F no longer uses the abandoned [sass-java]`https://github.com/cathive/sass-java`.)
+
 v0.0.4
 ======
  - New: Added 'watch' command line switch to monitor the base directory and re-compile the CSS should any file change.
