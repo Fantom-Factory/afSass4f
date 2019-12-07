@@ -1,15 +1,15 @@
 using util
 
 ** Runs Sass4f from the command line.
-** 
+**
 **   C:\> fan afSass4j [-x] [-m] <sassIn> <cssOut>
-** 
+**
 ** Where 'sassIn' and 'cssOut' are files. OS dependent and / or URI notation may be used. Example:
-** 
+**
 **   C:\> fan afSass4j -x C:\projects\website.scss C:\projects\website.css
-** 
+**
 **   C:\> fan afSass4j -x file:/C:/projects/website.scss file:/C:/projects/website.css
-** 
+**
 ** '-x' compresses the CSS output, '-m' generates a source map, and '-w' continuously watches for file updates.
 class Main : AbstractMain {
 
@@ -34,12 +34,9 @@ class Main : AbstractMain {
 
 	@NoDoc
 	override Int run() {
-		// FIXME ???
-//		Install().go
-
 		log := typeof.pod.log
 		log.info("Sass4j/${typeof.pod.version} with jsass/5.10.10 and libsass/3.6.3")
-		
+
 		options := SassOptions()
 		options.outputStyle	= compress ? SassOutputStyle.compressed : SassOutputStyle.nested
 		if (sassIn.ext == "sass" || sassIn.ext == "scss")
@@ -56,13 +53,13 @@ class Main : AbstractMain {
 			}.run
 			// DirWatcher never stops running
 		}
-		
+
 		log.info("Compiling `${sassIn.normalize.osPath}` to `${cssOut.normalize.osPath}`")
 		result	:= SassCompiler().compileFile(sassIn, cssOut, options)
-		
+
 		if (autoprefix)
 			result.autoprefix
-		
+
 		result.saveCss(cssOut)
 
 		if (sourceMap)
