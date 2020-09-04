@@ -30,7 +30,6 @@ class DirWatcher {
 			allUpdatedFiles := File[,]
 
 			baseDirs.each |baseDir| {
-
 				// by walking each time, we pick up new files
 				baseDir.walk |file| {
 					if (file.isDir) return
@@ -51,12 +50,18 @@ class DirWatcher {
 					}
 	
 					// reset cache
-					updatedFiles.each { fileMap[it] = false }
+					updatedFiles.each {
+						if (it.exists)
+							fileMap[it] = false
+						else
+							fileMap.remove(it)
+					}
 				}
 			}
 
-			try	onChangeFn(allUpdatedFiles)
-			catch (Err err)	log.err("ERROR", err)
+			if (allUpdatedFiles.size > 0)
+				try	onChangeFn(allUpdatedFiles)
+				catch (Err err)	log.err("ERROR", err)
 
 			Actor.sleep(sleepDir)
 		}

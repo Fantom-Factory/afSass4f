@@ -40,8 +40,9 @@ internal class ScssWatcher {
 		if (i != null)
 			outDir = args[i+1].toUri
 		
+		// compile top level scss files only - otherwise it gets tricky knowing where to save them to!
 		scssDirs.each |scssDir| {
-			scssDir.walk |file| {
+			scssDir.listFiles.each |file| {
 				if (file.ext == "scss" && !file.name.startsWith("_"))
 					scssFiles.add(file)
 			}
