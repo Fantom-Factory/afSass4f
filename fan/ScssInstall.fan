@@ -8,7 +8,8 @@ class ScssInstall {
 	** Do it!
 	Void go() {
 		log := typeof.pod.log
-		
+		log.info("Sass4j/${typeof.pod.version} with jsass/5.10.10 and libsass/3.6.3")
+
 		// these files are exploded into the pod via jsass.jar
 		libFile := Main#.pod.files.find { it.uri.pathStr.startsWith("/${Env.cur.platform}/") && it.basename == "sass" }
 		if (libFile == null)
@@ -21,4 +22,7 @@ class ScssInstall {
 			libFile.copyTo(dstFile)
 		}
 	}
+	
+	@NoDoc
+	Void main(Str[] args) { go }
 }

@@ -37,9 +37,6 @@ class Main : AbstractMain {
 		// first things first, make sure libSass is installed!
 		ScssInstall().go
 
-		log := typeof.pod.log
-		log.info("Sass4j/${typeof.pod.version} with jsass/5.10.10 and libsass/3.6.3")
-
 		options := SassOptions()
 		options.outputStyle	= compress ? SassOutputStyle.compressed : SassOutputStyle.nested
 		if (sassIn.ext == "sass" || sassIn.ext == "scss")

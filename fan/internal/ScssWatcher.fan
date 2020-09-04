@@ -26,6 +26,8 @@ internal class ScssWatcher {
 	
 	** Used by StackHub web modules - compiles all SCSS files found in the work dirs.
 	static Void main(Str[] args) {
+		ScssInstall().go
+
 		scssFiles	:= File[,]
 		scssDirs	:= Env.cur.findAllFiles(`etc/scss/`)
 		cssOut		:= `etc/web/`.toFile.normalize
