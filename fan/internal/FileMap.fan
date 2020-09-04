@@ -146,12 +146,12 @@ internal class FileMap {
 	}
 
 	** Returns a list of all the mapped keys.
-	Obj[] keys() {
+	File[] keys() {
 		val.keys
 	}
 
 	** Get a read-write, mutable Map instance with the same contents.
-	[Obj:Obj?] rw() {
+	[File:Obj?] rw() {
 		val.rw
 	}
 

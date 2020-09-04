@@ -2,7 +2,7 @@ using util
 
 ** Runs Sass4f from the command line.
 **
-**   C:\> fan afSass4j [-x] [-m] <sassIn> <cssOut>
+**   C:\> fan afSass4j [-x] [-m] [-w] <sassIn> <cssOut>
 **
 ** Where 'sassIn' and 'cssOut' are files. OS dependent and / or URI notation may be used. Example:
 **
@@ -34,6 +34,9 @@ class Main : AbstractMain {
 
 	@NoDoc
 	override Int run() {
+		// first things first, make sure libSass is installed!
+		ScssInstall().go
+
 		log := typeof.pod.log
 		log.info("Sass4j/${typeof.pod.version} with jsass/5.10.10 and libsass/3.6.3")
 
@@ -43,7 +46,7 @@ class Main : AbstractMain {
 			options.inputStyle	= SassInputStyle(sassIn.ext.upper)
 
 		if (watch) {
-			DirWatcher {
+			ScssWatcher {
 				it.sassIn		= this.sassIn
 				it.cssOut		= this.cssOut
 				it.baseDir		= this.sassIn.parent
@@ -51,7 +54,9 @@ class Main : AbstractMain {
 				it.sourceMap	= this.sourceMap
 				it.autoprefix	= this.autoprefix
 			}.run
+
 			// DirWatcher never stops running
+			return 0
 		}
 
 		log.info("Compiling `${sassIn.normalize.osPath}` to `${cssOut.normalize.osPath}`")
