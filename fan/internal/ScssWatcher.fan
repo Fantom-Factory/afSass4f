@@ -30,15 +30,15 @@ internal class ScssWatcher {
 
 		scssFiles	:= File[,]
 		scssDirs	:= Env.cur.findAllFiles(`etc/scss/`)
-		cssOut		:= `etc/web/`.toFile.normalize
+		outDir		:= `../web-static/css/`
 		options		:= SassOptions() {
 			it.outputStyle	= SassOutputStyle.compressed
 			it.inputStyle	= SassInputStyle.SCSS
 		}
 
-		i := args.findIndex { it == "cssOut" }
+		i := args.findIndex { it == "outDir" }
 		if (i != null)
-			cssOut = args[i+1].toUri.toFile.normalize
+			outDir = args[i+1].toUri
 		
 		scssDirs.each |scssDir| {
 			scssDir.walk |file| {
@@ -49,6 +49,7 @@ internal class ScssWatcher {
 
 		DirWatcher(scssDirs) |updatedFiles| {
 			scssFiles.each |scssFile| {
+				cssOut	:= scssFile.parent.plus(outDir)
 		        log.info("Compiling `${scssFile.normalize.osPath}` to `${cssOut.normalize.osPath}`")
 		        result  := SassCompiler().compileFile(scssFile, cssOut, options)
 				result.autoprefix
