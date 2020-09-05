@@ -7,6 +7,10 @@ using [java] fanx.interop::Interop
 class SassCompiler {
 	private static const Log	log		:= SassCompiler#.pod.log
 
+	** A hook to add custom pre-processing to top-level SCSS strings. 
+	@NoDoc	// used by ScssWatcher for modular web apps like StackHub
+	|Str, File->Str|?	preProcessingFn
+	
 	** Compiles the given Sass / Scss file to a CSS string.
 	** 
 	** To compile a file:
@@ -26,8 +30,13 @@ class SassCompiler {
 			opts	:= options ?: SassOptions()
 			inFile	:= JFile( inputFile.normalize.osPath).toURI
 			outFile	:= JFile(outputFile.normalize.osPath).toURI	// not really sure what this does - it's not created!
-			output	:= Compiler().compileFile(inFile, outFile, opts.getOpts)
+			inStr	:= inputFile.readAllStr
+			
+			if (preProcessingFn != null)
+				inStr = preProcessingFn(inStr, inputFile)
 
+			output	:= Compiler().compileString(inStr, inFile, outFile, opts.getOpts)
+			
 			return SassResult {
 				it.css 		 = output.getCss
 				it.sourceMap = output.getSourceMap
