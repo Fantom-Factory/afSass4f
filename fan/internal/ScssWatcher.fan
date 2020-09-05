@@ -29,6 +29,7 @@ internal class ScssWatcher {
 		scssFiles	:= File:File[][:]
 		scssDirs	:= (File[]) Env.cur.findAllFiles(`etc/scss/`).map |dir->File| { dir.normalize }
 		outDir		:= `../web-static/css/`
+		globals		:= File[,]
 		options		:= SassOptions() {
 			it.outputStyle	= SassOutputStyle.compressed
 			it.inputStyle	= SassInputStyle.SCSS
@@ -44,6 +45,27 @@ internal class ScssWatcher {
 				if (file.ext == "scss" && !file.name.startsWith("_"))
 					scssFiles.getOrAdd(scssDir) { File[,] }.add(file)
 			}
+
+			// support for inter-project global SCSS files via:
+			// @import "/global/variables";
+			globalDir := scssDir.plus(`global/`)
+			if (globalDir.exists) {
+				globalDir.listFiles.each |file| {
+					if (file.ext == "scss" && file.name.startsWith("_"))
+						globals.add(file)
+				}
+			}
+		}
+		
+		sassCompiler := SassCompiler {
+			it.preProcessingFn = |Str scss, File file -> Str| {
+				globals.each |global| {
+					path := global.uri.relTo(file.uri)
+					name := path + path.basename[1..-1].toUri
+					scss = scss.replace("@import \"/global/${global.basename[1..-1]}\";", "@import \"${name}\";")
+				}
+				return scss
+			}
 		}
 
 		DirWatcher(scssDirs) |updatedFiles| {
@@ -52,7 +74,7 @@ internal class ScssWatcher {
 				if (updatedFiles.any { it.toStr.startsWith(scssDir.toStr) }) {
 					scssFil.each |scssFile| {
 						cssOut	:= scssFile.parent.plus(outDir)
-				        result  := SassCompiler().compileFile(scssFile, cssOut, options)
+				        result  := sassCompiler.compileFile(scssFile, cssOut, options)
 						result.autoprefix
 				        result.saveCss(cssOut)
 					}
