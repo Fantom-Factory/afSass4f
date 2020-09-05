@@ -1,7 +1,6 @@
 using concurrent
 
 internal class ScssWatcher {
-	private static const Log	log				:= ScssWatcher#.pod.log
 	private SassCompiler		sassCompiler	:= SassCompiler()
 
 	SassOptions	options
@@ -15,7 +14,6 @@ internal class ScssWatcher {
 	
 	Void run() {
 		DirWatcher([baseDir]) |recompile| {
-	        log.info("Compiling `${sassIn.normalize.osPath}` to `${cssOut.normalize.osPath}`")
 	        result  := SassCompiler().compileFile(sassIn, cssOut, options)
 			if (autoprefix)	result.autoprefix
 	        result.saveCss(cssOut)
@@ -51,7 +49,6 @@ internal class ScssWatcher {
 		DirWatcher(scssDirs) |updatedFiles| {
 			scssFiles.each |scssFile| {
 				cssOut	:= scssFile.parent.plus(outDir)
-		        log.info("Compiling `${scssFile.normalize.osPath}` to `${cssOut.normalize.osPath}`")
 		        result  := SassCompiler().compileFile(scssFile, cssOut, options)
 				result.autoprefix
 		        result.saveCss(cssOut)

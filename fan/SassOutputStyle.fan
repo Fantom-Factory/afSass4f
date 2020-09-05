@@ -37,4 +37,8 @@ enum class SassOutputStyle {
 			default			: throw UnsupportedErr(this.toStr)
 		}
 	}
+	
+	Bool isMinified() {
+		this == compressed
+	}
 }

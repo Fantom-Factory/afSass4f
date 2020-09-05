@@ -5,7 +5,8 @@ using [java] fanx.interop::Interop
 
 ** The wrapper around JSass that wraps LibSass.
 class SassCompiler {
-	
+	private static const Log	log		:= SassCompiler#.pod.log
+
 	** Compiles the given Sass / Scss file to a CSS string.
 	** 
 	** To compile a file:
@@ -19,6 +20,8 @@ class SassCompiler {
 		if (inputFile.isDir)
 			throw ArgErr("${inputFile.normalize.osPath} is not a file")
 
+        log.info("Compiling `${inputFile.normalize.osPath}`...")
+		
 		try {
 			opts	:= options ?: SassOptions()
 			inFile	:= JFile( inputFile.normalize.osPath).toURI

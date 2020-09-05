@@ -1,6 +1,7 @@
 
 ** Sass compilation results.
 class SassResult {
+	private static const Log	log		:= SassResult#.pod.log
 
 	** The input Scss file.
 	File? inputFile
@@ -29,7 +30,7 @@ class SassResult {
 	** If the given file is a directory then the resulting filename is taken from the input file with a '.css' extension.
 	** The parent directory is created if it does not exist.  
 	Void saveCss(File cssFile) {
-		saveStr(cssFile, ".css", css)
+		saveStr(cssFile, options.outputStyle.isMinified ? ".min.css" : ".css", css)
 	}
 	
 	** Saves the source map to the given file.   
@@ -47,5 +48,8 @@ class SassResult {
 
 		outFile.parent.create
 		outFile.out.writeChars(content).close
+		
+		// double space so the path lines up nicely with the Compiling log
+		log.info("  - Wrote `${outFile.normalize.osPath}`")
 	}
 }
