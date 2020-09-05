@@ -26,8 +26,8 @@ internal class ScssWatcher {
 	static Void main(Str[] args) {
 		ScssInstall().go
 
-		scssFiles	:= File[,]
-		scssDirs	:= Env.cur.findAllFiles(`etc/scss/`)
+		scssFiles	:= File:File[][:]
+		scssDirs	:= (File[]) Env.cur.findAllFiles(`etc/scss/`).map |dir->File| { dir.normalize }
 		outDir		:= `../web-static/css/`
 		options		:= SassOptions() {
 			it.outputStyle	= SassOutputStyle.compressed
@@ -42,16 +42,21 @@ internal class ScssWatcher {
 		scssDirs.each |scssDir| {
 			scssDir.listFiles.each |file| {
 				if (file.ext == "scss" && !file.name.startsWith("_"))
-					scssFiles.add(file)
+					scssFiles.getOrAdd(scssDir) { File[,] }.add(file)
 			}
 		}
 
 		DirWatcher(scssDirs) |updatedFiles| {
-			scssFiles.each |scssFile| {
-				cssOut	:= scssFile.parent.plus(outDir)
-		        result  := SassCompiler().compileFile(scssFile, cssOut, options)
-				result.autoprefix
-		        result.saveCss(cssOut)
+			scssFiles.each |scssFil, scssDir| {
+				// don't compile everything - just SCSS files in the containing project
+				if (updatedFiles.any { it.toStr.startsWith(scssDir.toStr) }) {
+					scssFil.each |scssFile| {
+						cssOut	:= scssFile.parent.plus(outDir)
+				        result  := SassCompiler().compileFile(scssFile, cssOut, options)
+						result.autoprefix
+				        result.saveCss(cssOut)
+					}
+				}
 			}
 		}.run
 	}
