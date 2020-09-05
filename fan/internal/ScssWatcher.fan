@@ -69,9 +69,11 @@ internal class ScssWatcher {
 		}
 
 		DirWatcher(scssDirs) |updatedFiles| {
+			updateEverything := globals.containsAny(updatedFiles)
+			
 			scssFiles.each |scssFil, scssDir| {
 				// don't compile everything - just SCSS files in the containing project
-				if (updatedFiles.any { it.toStr.startsWith(scssDir.toStr) }) {
+				if (updateEverything || updatedFiles.any { it.toStr.startsWith(scssDir.toStr) }) {
 					scssFil.each |scssFile| {
 						cssOut	:= scssFile.parent.plus(outDir)
 				        result  := sassCompiler.compileFile(scssFile, cssOut, options)
