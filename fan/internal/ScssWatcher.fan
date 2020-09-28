@@ -1,6 +1,7 @@
 using concurrent
 
 internal class ScssWatcher {
+	private static const Log	log				:= ScssWatcher#.pod.log
 	private SassCompiler		sassCompiler	:= SassCompiler()
 
 	SassOptions	options
@@ -35,6 +36,9 @@ internal class ScssWatcher {
 			it.inputStyle	= SassInputStyle.SCSS
 		}
 
+		if (`etc/scss/`.toFile.exists)
+			scssDirs.add(`etc/scss/`.toFile.normalize)
+
 		i := args.findIndex { it == "outDir" }
 		if (i != null)
 			outDir = args[i+1].toUri
@@ -56,6 +60,14 @@ internal class ScssWatcher {
 				}
 			}
 		}
+		
+		watchedFiles := (File[]) scssFiles.vals.flatten
+		if (watchedFiles.isEmpty) {
+			log.warn("WARN: Could not find any SCSS files in: " + scssDirs.join(", ") { it.toStr + "etc/scss/" })
+			return
+		}
+		
+		log.info("Watching the following SCSS files:\n - " + watchedFiles.join("\n - ") { it.osPath } + "\n")
 		
 		sassCompiler := SassCompiler {
 			it.preProcessingFn = |Str scss, File file -> Str| {
