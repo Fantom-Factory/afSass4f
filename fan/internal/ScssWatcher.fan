@@ -28,6 +28,7 @@ internal class ScssWatcher {
 		ScssInstall().go
 
 		scssFiles	:= File:File[][:]
+		watchDirs	:= File:File[][:]
 		scssDirs	:= (File[]) Env.cur.findAllFiles(`etc/scss/`).map |dir->File| { dir.normalize }
 		outDir		:= `../web-static/css/`
 		globals		:= File[,]
@@ -44,10 +45,23 @@ internal class ScssWatcher {
 			outDir = args[i+1].toUri
 		
 		// compile top level scss files only - otherwise it gets tricky knowing where to save them to!
-		scssDirs.each |scssDir| {
+		scssDirs.unique.each |scssDir| {
 			scssDir.listFiles.each |file| {
-				if (file.ext == "scss" && !file.name.startsWith("_"))
+				if (file.ext == "scss" && !file.name.startsWith("_")) {
 					scssFiles.getOrAdd(scssDir) { File[,] }.add(file)
+					
+					// let top-level SCSS files watch dirs: e.g.
+					// watch: ../../../StackHub-WebPortal-Lics/etc/scss/
+					dirs := File[,]
+					file.readAllLines.each {
+						if (it.startsWith("// watch:")) {
+							dir := file + it["// watch:".size..-1].trim.toUri
+							dirs.add(dir)
+						}
+					}
+					if (dirs.size > 0)
+						watchDirs[file] = dirs
+				}
 			}
 
 			// support for inter-project global SCSS files via:
@@ -61,7 +75,7 @@ internal class ScssWatcher {
 			}
 		}
 		
-		watchedFiles := (File[]) scssFiles.vals.flatten
+		watchedFiles := (File[]) scssFiles.vals.flatten.unique
 		if (watchedFiles.isEmpty) {
 			log.warn("WARN: Could not find any SCSS files in: " + scssDirs.join(", ") { it.toStr + "etc/scss/" })
 			return
@@ -84,6 +98,11 @@ internal class ScssWatcher {
 			updateEverything := globals.containsAny(updatedFiles)
 			
 			scssFiles.each |scssFil, scssDir| {
+				echo("[$scssDir] -> $scssFil")
+			}
+			
+			updated := File[,]
+			scssFiles.each |scssFil, scssDir| {
 				// don't compile everything - just SCSS files in the containing project
 				if (updateEverything || updatedFiles.any { it.toStr.startsWith(scssDir.toStr) }) {
 					scssFil.each |scssFile| {
@@ -91,9 +110,24 @@ internal class ScssWatcher {
 				        result  := sassCompiler.compileFile(scssFile, cssOut, options)
 						result.autoprefix
 				        result.saveCss(cssOut)
+						updated.add(scssFile)
 					}
 				}
 			}
+			
+			watchDirs.each |watchDirs2, scssFile| {
+				watchUpdated := watchDirs2.any |watchDir| {
+					updatedFiles.any { it.toStr.startsWith(watchDir.toStr) }			
+				}
+				if (watchUpdated && !updated.contains(scssFile)) {
+					cssOut	:= scssFile.parent.plus(outDir)
+			        result  := sassCompiler.compileFile(scssFile, cssOut, options)
+					result.autoprefix
+			        result.saveCss(cssOut)
+					updated.add(scssFile)
+				}
+			}
+			
 		}.run
 	}
 }
