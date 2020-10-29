@@ -97,10 +97,6 @@ internal class ScssWatcher {
 		DirWatcher(scssDirs) |updatedFiles| {
 			updateEverything := globals.containsAny(updatedFiles)
 			
-			scssFiles.each |scssFil, scssDir| {
-				echo("[$scssDir] -> $scssFil")
-			}
-			
 			updated := File[,]
 			scssFiles.each |scssFil, scssDir| {
 				// don't compile everything - just SCSS files in the containing project
