@@ -42,11 +42,10 @@ class SassResult {
 	}
 	
 	private Void saveStr(File file, Str ext, Str content) {
-		parent	:= file.isDir ? file : file.parent
 		name	:= file.isDir ? inputFile.basename + ext : file.name 
-		outFile	:= parent.plus(name.toUri)
+		outFile	:= file.plus(name.toUri)
 
-		outFile.parent.create
+		outFile.parent?.create
 		outFile.out.writeChars(content).close
 		
 		// double space so the path lines up nicely with the Compiling log
