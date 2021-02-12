@@ -25,12 +25,11 @@ internal class ScssWatcher {
 	
 	** Used by StackHub web modules - compiles all SCSS files found in the work dirs.
 	static Void main(Str[] args) {
-		ScssInstall().go
-
 		scssFiles	:= File:File[][:]
 		watchDirs	:= File:File[][:]
 		scssDirs	:= (File[]) Env.cur.findAllFiles(`etc/scss/`).map |dir->File| { dir.normalize }
 		outDir		:= `../web-static/css/`
+		outDirs		:= File:File[:]
 		globals		:= File[,]
 		options		:= SassOptions() {
 			it.outputStyle	= SassOutputStyle.compressed
@@ -40,7 +39,7 @@ internal class ScssWatcher {
 		if (`etc/scss/`.toFile.exists)
 			scssDirs.add(`etc/scss/`.toFile.normalize)
 
-		i := args.findIndex { it == "outDir" }
+		i := args.findIndex { it == "-outDir" }
 		if (i != null)
 			outDir = args[i+1].toUri
 		
@@ -57,6 +56,11 @@ internal class ScssWatcher {
 						if (it.startsWith("// watch:")) {
 							dir := file + it["// watch:".size..-1].trim.toUri
 							dirs.add(dir)
+						}
+						
+						if (it.startsWith("// outDir:")) {
+							dir := file + it["// outDir:".size..-1].trim.toUri
+							outDirs[file] = dir
 						}
 					}
 					if (dirs.size > 0)
@@ -102,7 +106,7 @@ internal class ScssWatcher {
 				// don't compile everything - just SCSS files in the containing project
 				if (updateEverything || updatedFiles.any { it.toStr.startsWith(scssDir.toStr) }) {
 					scssFil.each |scssFile| {
-						cssOut	:= scssFile.parent.plus(outDir)
+						cssOut	:= outDirs[scssFile] ?: scssFile.parent.plus(outDir)
 				        result  := sassCompiler.compileFile(scssFile, cssOut, options)
 						result.autoprefix
 				        result.saveCss(cssOut)
@@ -116,7 +120,7 @@ internal class ScssWatcher {
 					updatedFiles.any { it.toStr.startsWith(watchDir.toStr) }			
 				}
 				if (watchUpdated && !updated.contains(scssFile)) {
-					cssOut	:= scssFile.parent.plus(outDir)
+					cssOut	:= outDirs[scssFile] ?: scssFile.parent.plus(outDir)
 			        result  := sassCompiler.compileFile(scssFile, cssOut, options)
 					result.autoprefix
 			        result.saveCss(cssOut)
