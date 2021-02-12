@@ -1,4 +1,10 @@
 
+v0.2.0
+======
+ - New: Super secret 'ScssWatcher' class tool - for internal Fantom Factory use. (Alpha status.)
+ - Chg: Re-instated the auto-installer to copy over libSass library (.dll / .so) files to Fantom home.
+ - Chg: Updated to use [jsass/5.10.4]`https://github.com/bit3/jsass` with [libsass/3.6.4]`https://sass-lang.com/libsass`.
+
 v0.1.0
 ======
  - New: Updated to use [jsass/5.10.3]`https://github.com/bit3/jsass` with [libsass/3.6.3]`https://sass-lang.com/libsass`. (Sass4F no longer uses the abandoned [sass-java]`https://github.com/cathive/sass-java`.)

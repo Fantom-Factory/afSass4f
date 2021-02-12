@@ -4,8 +4,8 @@ class Build : BuildPod {
 
 	new make() {
 		podName = "afSass4f"
-		summary = "A wrapper around libSass 3.6.3 - the compiler for Sass and Scss"
-		version = Version("0.1.2")
+		summary = "A wrapper around libSass 3.6.4 - the compiler for Sass and Scss"
+		version = Version("0.2.0")
 
 		meta = [	
 			"pod.dis"		: "Sass4f",
