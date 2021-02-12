@@ -13,6 +13,9 @@ using util
 ** '-x' compresses the CSS output, '-m' generates a source map, and '-w' continuously watches for file updates.
 class Main : AbstractMain {
 
+	@Opt { aliases=["s"]; help="Setup, extract libsass library files to %FAN_HOME%/bin/" }
+	private Bool setup
+
 	@Opt { aliases=["x"]; help="Compresses the generated CSS" }
 	private Bool compress
 
@@ -35,7 +38,8 @@ class Main : AbstractMain {
 	@NoDoc
 	override Int run() {
 		// first things first, make sure libSass is installed!
-		ScssInstall().go
+		if (setup)
+			ScssInstall().go
 
 		options := SassOptions()
 		options.outputStyle	= compress ? SassOutputStyle.compressed : SassOutputStyle.nested
