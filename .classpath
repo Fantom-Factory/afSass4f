@@ -7,6 +7,6 @@
 	<classpathentry kind="lib" path="lib/commons-text-1.8.jar"/>
 	<classpathentry kind="lib" path="lib/mjson-1.4.1.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.7.28.jar"/>
-	<classpathentry kind="lib" path="lib/jsass-5.10.4.jar"/>
+	<classpathentry kind="lib" path="lib/jsass-5.10.5-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>
