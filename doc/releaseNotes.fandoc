@@ -2,9 +2,9 @@
 v0.2.0
 ======
  - New: Super secret 'ScssWatcher' class tool - for internal Fantom Factory use. (Alpha status.)
- - Chg: Re-instated the auto-installer to copy over libSass library (.dll / .so) files to Fantom home.
+ - Chg: Re-instated the installer to copy libSass library files (.dll / .so) to Fantom home. (Some seem to need it, most don't...!?)
  - Chg: Updated to use [jsass/5.10.4]`https://github.com/bit3/jsass` with [libsass/3.6.4]`https://sass-lang.com/libsass`.
- - Chg: Patched jsass Java library to remove libsass deprecation warnings. See [jsass issue #95]`https://gitlab.com/jsass/jsass/-/issues/95`.
+ - Chg: Patched jsass library to remove libsass deprecation warnings. See [jsass issue #95]`https://gitlab.com/jsass/jsass/-/issues/95`.
 
 v0.1.0
 ======
