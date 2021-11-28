@@ -1,8 +1,5 @@
 
 ** Copies native LibSass files to '%FAN_HOME%/bin/' (if they don't exist).
-** 
-** Is run when Sass4F is started.
-** 
 class ScssInstall {
 	
 	** Do it!

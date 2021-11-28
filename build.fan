@@ -10,7 +10,6 @@ class Build : BuildPod {
 		meta = [	
 			"pod.dis"		: "Sass4f",
 			"repo.tags"		: "app, web",
-			"repo.internal"	: "true",
 			"repo.public"	: "true"
 		]
 

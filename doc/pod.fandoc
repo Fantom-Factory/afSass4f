@@ -30,7 +30,7 @@ Note that 'cssOut' may also be a directory, for example:
 
   C:\> fan afSass4j -x -m -w scss\website.scss css\
 
-will generate 'css\website.css' and re-compile it should any file in the 'scss/' directory be updated.
+will generate 'css\website.css' and re-compile it should *any* file in the 'scss/' directory be updated.
 
 
 
@@ -53,7 +53,7 @@ Sass4f is designed to be used a standalone application and as such, comes bundle
  - 'commons-io-2.6.jar'
  - 'commons-lang3-3.9.jar'
  - 'commons-text-1.8.jar'
- - 'jsass-5.10.4.jar'
+ - 'jsass-5.10.5-SNAPSHOT.jar'
  - 'mjson-1.4.1.jar'
  - 'slf4j-api-1.7.28.jar'
 

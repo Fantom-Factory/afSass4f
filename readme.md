@@ -1,15 +1,15 @@
-# Sass4f v0.1.2
+# Sass4f v0.2.0
 ---
 
 [![Written in: Fantom](http://img.shields.io/badge/written%20in-Fantom-lightgray.svg)](https://fantom-lang.org/)
-[![pod: v0.1.2](http://img.shields.io/badge/pod-v0.1.2-yellow.svg)](http://eggbox.fantomfactory.org/pods/afSass4f)
+[![pod: v0.2.0](http://img.shields.io/badge/pod-v0.2.0-yellow.svg)](http://eggbox.fantomfactory.org/pods/afSass4f)
 [![Licence: ISC](http://img.shields.io/badge/licence-ISC-blue.svg)](https://choosealicense.com/licenses/isc/)
 
 ## Overview
 
-*Sass4f is a support library that aids Alien-Factory in the development of other libraries, frameworks and applications. Though you are welcome to use it, you may find features are missing and the documentation incomplete.*
+*Sass4f is a support library that aids Fantom-Factory in the development of other libraries, frameworks and applications. Though you are welcome to use it, you may find features are missing and the documentation incomplete.*
 
-Sass4f is a wrapper around [jsass/5.10.3](https://github.com/bit3/jsass) and [libsass/3.6.3](https://sass-lang.com/libsass) - the compiler for Sass and Scss files.
+Sass4f is a wrapper around [jsass/5.10.4](https://github.com/bit3/jsass) and [libsass/3.6.4](https://sass-lang.com/libsass) - the compiler for Sass and Scss files.
 
 Sass4f is a simple command line utility program for compiling `.scss` files into `.css` files. It was created for compiling [Twitter Bootstrap](http://getbootstrap.com/) templates and has been successfully tested with Bootstrap v4.4.1.
 
@@ -31,7 +31,7 @@ Or install `Sass4f` with [fanr](https://fantom.org/doc/docFanr/Tool.html#install
 
 To use in a [Fantom](https://fantom-lang.org/) project, add a dependency to `build.fan`:
 
-    depends = ["sys 1.0", ..., "afSass4f 0.1"]
+    depends = ["sys 1.0", ..., "afSass4f 0.2"]
 
 ## <a name="documentation"></a>Documentation
 
@@ -75,7 +75,7 @@ Sass4f is designed to be used a standalone application and as such, comes bundle
 * `commons-io-2.6.jar`
 * `commons-lang3-3.9.jar`
 * `commons-text-1.8.jar`
-* `jsass-5.10.3.jar`
+* `jsass-5.10.4.jar`
 * `mjson-1.4.1.jar`
 * `slf4j-api-1.7.28.jar`
 

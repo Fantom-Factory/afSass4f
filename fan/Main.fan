@@ -13,7 +13,7 @@ using util
 ** '-x' compresses the CSS output, '-m' generates a source map, and '-w' continuously watches for file updates.
 class Main : AbstractMain {
 
-	@Opt { aliases=["s"]; help="Setup, extract libsass library files to %FAN_HOME%/bin/" }
+	@Opt { aliases=["s"]; help="Setup; extract libsass library files to %FAN_HOME%/bin/" }
 	private Bool setup
 
 	@Opt { aliases=["x"]; help="Compresses the generated CSS" }
