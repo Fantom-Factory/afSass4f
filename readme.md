@@ -7,8 +7,6 @@
 
 ## Overview
 
-*Sass4f is a support library that aids Fantom-Factory in the development of other libraries, frameworks and applications. Though you are welcome to use it, you may find features are missing and the documentation incomplete.*
-
 Sass4f is a wrapper around [jsass/5.10.4](https://github.com/bit3/jsass) and [libsass/3.6.4](https://sass-lang.com/libsass) - the compiler for Sass and Scss files.
 
 Sass4f is a simple command line utility program for compiling `.scss` files into `.css` files. It was created for compiling [Twitter Bootstrap](http://getbootstrap.com/) templates and has been successfully tested with Bootstrap v4.4.1.
@@ -55,7 +53,7 @@ Note that `cssOut` may also be a directory, for example:
 
     C:\> fan afSass4j -x -m -w scss\website.scss css\
 
-will generate `css\website.css` and re-compile it should any file in the `scss/` directory be updated.
+will generate `css\website.css` and re-compile it should *any* file in the `scss/` directory be updated.
 
 ## Platforms
 
@@ -75,7 +73,7 @@ Sass4f is designed to be used a standalone application and as such, comes bundle
 * `commons-io-2.6.jar`
 * `commons-lang3-3.9.jar`
 * `commons-text-1.8.jar`
-* `jsass-5.10.4.jar`
+* `jsass-5.10.5-SNAPSHOT.jar`
 * `mjson-1.4.1.jar`
 * `slf4j-api-1.7.28.jar`
 
