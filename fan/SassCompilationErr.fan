@@ -32,7 +32,7 @@ const class SassCompilationErr : Err {
 		return SassCompilationErr(
 			map["status"	], 
 			map["formatted"	],
-			map["file"		],
+			map["file"		] ?: "?",
 			map["line"		] ?: -1,
 			map["column"	] ?: -1,
 			err.getErrorJson)
